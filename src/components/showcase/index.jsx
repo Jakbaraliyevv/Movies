@@ -1,11 +1,8 @@
-import Navbar from "../navbar";
 import Shwipper_showcase from "../swipper_showcase";
 function Showcase() {
   return (
     <section className="bg_img bg_2 ">
-      <Navbar />
-
-      <div className=" mt-[40px] w-[90%] m-auto">
+      <div className=" pt-[40px] w-[90%] m-auto">
         <div className="flex flex-col gap-[27px] justify-center">
           <h1 className="text-[#FFF] text-[34px] font-bold font-serif">
             Siz sevgan barcha kinolar —

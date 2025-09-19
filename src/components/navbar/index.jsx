@@ -3,11 +3,11 @@ import { Search } from "lucide-react";
 
 function Navbar() {
   return (
-    <section className="">
+    <section className="bg-[rgb(30,34,43)] sticky top-0 z-50">
       <div className="w-[90%] m-auto py-[20px] flex items-center justify-between">
         <div className="flex items-end gap-2">
-          <img className="w-[70px]" src={logo} alt="logo" />
-          <h1 className="text-[37px] text-white font-medium font-serif">
+          <img className="w-[50px]" src={logo} alt="logo" />
+          <h1 className="text-[27px] text-white font-medium font-serif">
             Filmagnet
           </h1>
         </div>
