@@ -3,7 +3,7 @@ import { Search } from "lucide-react";
 
 function Navbar() {
   return (
-    <section className="bg-[rgb(30,34,43)] sticky top-0 z-50">
+    <section className="bg-[rgb(26,11,46)] sticky top-0 z-50">
       <div className="w-[90%] m-auto py-[20px] flex items-center justify-between">
         <div className="flex items-end gap-2">
           <img className="w-[50px]" src={logo} alt="logo" />

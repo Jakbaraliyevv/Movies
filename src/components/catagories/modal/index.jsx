@@ -80,7 +80,7 @@ const ModalCatagory = () => (
       <Dropdown
         placement="bottomLeft"
         dropdownRender={() => (
-          <div className="bg-[rgb(30,34,43);] border-[1px] border-gray-500 text-white rounded shadow-md py-1">
+          <div className="bg-[rgb(26,11,46)] border-[1px] border-gray-500 text-white rounded shadow-md py-1">
             {items.map((item) => (
               <div
                 key={item.key}
