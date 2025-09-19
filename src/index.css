@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: rgb(8, 7, 10);
+}
+.bg_img {
+  background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.7) 20%,
+      rgba(0, 0, 0, 0.5) 40%,
+      rgba(0, 0, 0, 0.1) 70%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    url("../public/bg_img.png");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
+}
