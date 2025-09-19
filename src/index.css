@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body {
-  background-color: rgb(8, 7, 10);
+  /* background-color: rgb(8, 7, 10); */
+  background-color: rgb(30,34,43);
 }
 .bg_img {
   background: linear-gradient(
