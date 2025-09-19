@@ -1,5 +1,6 @@
 import logo from "../../../public/logosvg.svg";
 import { Search } from "lucide-react";
+import AutComponents from "../auth";
 
 function Navbar() {
   return (
@@ -15,12 +16,7 @@ function Navbar() {
         <div className="flex items-center gap-4">
           <Search size={27} className="text-[#FFF] cursor-pointer" />
 
-          <button className="relative overflow-hidden text-white w-[150px] py-[7px] text-[19px] font-medium rounded-full border border-[#ffd700] group">
-            <span className="relative z-10 transition-colors duration-500 group-hover:text-black">
-              Kirish
-            </span>
-            <span className="absolute top-0 left-0 w-0 h-full bg-[#ffd700] transition-all duration-500 ease-in-out rounded-full group-hover:w-full"></span>
-          </button>
+          <AutComponents />
         </div>
       </div>
     </section>
