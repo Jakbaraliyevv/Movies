@@ -5,6 +5,8 @@ import Shwipper_showcase from "../swipper_showcase";
 function Showcase() {
   const [openAuth, setOpenAuth] = useState(false);
 
+  const token = localStorage.getItem("token");
+
   return (
     <section className="bg_img bg_2 ">
       <div className="pt-[40px] w-[90%] m-auto">
@@ -26,15 +28,19 @@ function Showcase() {
             his eting va maroqli dam oling!{" "}
           </p>
 
-          <button
-            onClick={() => setOpenAuth(true)}
-            className="relative overflow-hidden text-white w-[270px] py-[9px] text-[19px] font-medium rounded-full border border-[#ffd700] group"
-          >
-            <span className="relative z-10 transition-colors duration-500 group-hover:text-black">
-              Ro'yxatdan o'tish
-            </span>
-            <span className="absolute top-0 left-0 w-0 h-full bg-[#ffd700] transition-all duration-500 ease-in-out rounded-full group-hover:w-full"></span>
-          </button>
+          {token ? (
+            ""
+          ) : (
+            <button
+              onClick={() => setOpenAuth(true)}
+              className="relative overflow-hidden text-white w-[270px] py-[9px] text-[19px] font-medium rounded-full border border-[#ffd700] group"
+            >
+              <span className="relative z-10 transition-colors duration-500 group-hover:text-black">
+                Ro'yxatdan o'tish
+              </span>
+              <span className="absolute top-0 left-0 w-0 h-full bg-[#ffd700] transition-all duration-500 ease-in-out rounded-full group-hover:w-full"></span>
+            </button>
+          )}
 
           <Shwipper_showcase />
         </div>
