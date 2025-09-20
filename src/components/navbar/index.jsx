@@ -2,6 +2,7 @@ import logo from "../../../public/logosvg.svg";
 import { Lock, Search, User } from "lucide-react";
 import AutComponents from "../auth";
 import { useState, useEffect, useRef } from "react";
+import SearchModal from "./search-modal";
 
 function Navbar() {
   const [openAuth, setOpenAuth] = useState(false);
@@ -46,8 +47,8 @@ function Navbar() {
 
         {/* Search + Button */}
         <div className="flex items-center gap-4 relative" ref={dropdownRef}>
-          <Search size={27} className="text-[#FFF] cursor-pointer" />
-
+         
+          <SearchModal />
           <button
             onClick={() =>
               token ? setOpenDropdown((prev) => !prev) : setOpenAuth(true)
