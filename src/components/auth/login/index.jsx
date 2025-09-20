@@ -1,9 +1,52 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import logo from "../../../../public/logosvg.svg";
+import { useAxios } from "../../../hooks";
+import useNotification from "../../../generic";
 
-function Login() {
+function Login({ onSuccessLogin }) {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const axios = useAxios();
+  const notify = useNotification();
+
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  const getData = () => {
+    if (!email || !password) {
+      setError("Barcha maydonlarni to‘ldiring!");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setError("Email formati noto‘g‘ri!");
+      return;
+    }
+
+    setError("");
+
+    const data = { email, password };
+
+    axios({
+      method: "POST",
+      url: "/login",
+      data,
+    })
+      .then((data) => {
+        localStorage.setItem("token", data?.token);
+        notify("login");
+        onSuccessLogin();
+      })
+      .catch((error) => {
+        console.log(error);
+        notify("loginError");
+      });
+  };
 
   return (
     <section className="w-full p-6 rounded-lg bg-[rgb(17,7,31)] shadow-lg">
@@ -22,14 +65,17 @@ function Login() {
       <div className="flex flex-col gap-4">
         {/* Email input */}
         <input
+          onChange={(e) => setEmail(e.target.value)}
           type="email"
           placeholder="Email"
           className="w-full px-3 py-2 rounded-md bg-transparent border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#ffd700]"
         />
-
+        {error && <p className="text-red-500 text-sm">{error}</p>}{" "}
+        {/* Xato xabar */}
         {/* Password input with toggle */}
         <div className="relative w-full">
           <input
+            onChange={(e) => setPassword(e.target.value)}
             type={showPassword ? "text" : "password"}
             placeholder="Parol"
             className="w-full px-3 py-2 pr-10 rounded-md bg-transparent border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#ffd700]"
@@ -49,7 +95,10 @@ function Login() {
       </div>
 
       {/* Kirish button */}
-      <button className="w-full mt-6 bg-[#ffd700] text-black py-2 rounded-md font-medium text-[19px] hover:bg-yellow-400 transition-colors duration-300">
+      <button
+        onClick={() => getData()}
+        className="w-full mt-6 bg-[#ffd700] text-black py-2 rounded-md font-medium text-[19px] hover:bg-yellow-400 transition-colors duration-300"
+      >
         Kirish
       </button>
     </section>

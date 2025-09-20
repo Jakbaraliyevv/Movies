@@ -20,10 +20,22 @@ body {
   height: 100vh;
 }
 
-.filmBtn:hover {
+/* .filmBtn:hover {
   border: 1px solid #ffd902;
   background-color: transparent;
   color: #fff;
   box-shadow: 0 0 5px #ffd902;
   transition: 0.4s;
 }
+
+.custom-notification {
+  background-color: rgb(17, 7, 31) !important;
+  color: #fff !important;
+  border-radius: 8px;
+}
+.custom-notification .ant-notification-notice-message {
+  color: #fff !important;
+}
+.custom-notification .ant-notification-notice-description {
+  color: #ddd !important;
+} */

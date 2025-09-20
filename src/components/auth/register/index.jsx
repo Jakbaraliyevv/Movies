@@ -1,13 +1,54 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import logo from "../../../../public/logosvg.svg";
+import { useAxios } from "../../../hooks";
+import useNotification from "../../../generic";
 
-function Register() {
+function Register({ onSuccessRegister }) {
+  const axios = useAxios();
+  const notify = useNotification();
   const [showPassword, setShowPassword] = useState(false);
+
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  const getData = () => {
+    if (!validateEmail(email)) {
+      setError("Email formati noto‘g‘ri!");
+      return;
+    }
+    setError("");
+    const data = {
+      name: userName,
+      email,
+      password,
+    };
+
+    axios({
+      method: "POST",
+      url: "/register",
+      data,
+    })
+      .then((data) => {
+        console.log(data);
+        notify("register");
+        onSuccessRegister();
+      })
+      .catch((error) => {
+        console.log(error);
+        notify("registerError");
+      });
+  };
 
   return (
     <section className="w-full p-6 rounded-lg bg-[rgb(17,7,31)] shadow-lg">
-      {/* Logo va title */}
       <div className="mb-6">
         <div className="flex items-end gap-2">
           <img className="w-[30px]" src={logo} alt="logo" />
@@ -20,32 +61,25 @@ function Register() {
         </p>
       </div>
 
-      {/* Form inputs */}
       <div className="flex flex-col gap-4">
-        {/* Name */}
         <input
+          onChange={(e) => setUserName(e.target.value)}
           type="text"
-          placeholder="Ism"
+          placeholder="Username"
           className="w-full px-3 py-2 rounded-md bg-transparent border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#ffd700]"
         />
 
-        {/* Surname */}
         <input
-          type="text"
-          placeholder="Familiya"
-          className="w-full px-3 py-2 rounded-md bg-transparent border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#ffd700]"
-        />
-
-        {/* Email */}
-        <input
+          onChange={(e) => setEmail(e.target.value)}
           type="email"
           placeholder="Email"
           className="w-full px-3 py-2 rounded-md bg-transparent border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#ffd700]"
         />
+        {error && <p className="text-red-500 text-sm">{error}</p>}
 
-        {/* Password */}
         <div className="relative w-full">
           <input
+            onChange={(e) => setPassword(e.target.value)}
             type={showPassword ? "text" : "password"}
             placeholder="Parol"
             className="w-full px-3 py-2 pr-10 rounded-md bg-transparent border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#ffd700]"
@@ -64,8 +98,10 @@ function Register() {
         </div>
       </div>
 
-      {/* Register button */}
-      <button className="w-full mt-6 bg-[#ffd700] text-black py-2 rounded-md font-medium text-[19px] hover:bg-yellow-400 transition-colors duration-300">
+      <button
+        onClick={() => getData()}
+        className="w-full mt-6 bg-[#ffd700] text-black py-2 rounded-md font-medium text-[19px] hover:bg-yellow-400 transition-colors duration-300"
+      >
         Ro'yxatdan o'tish
       </button>
     </section>

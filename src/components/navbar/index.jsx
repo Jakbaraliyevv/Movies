@@ -1,8 +1,13 @@
 import logo from "../../../public/logosvg.svg";
 import { Search } from "lucide-react";
 import AutComponents from "../auth";
+import { useState } from "react";
 
 function Navbar() {
+  const [openAuth, setOpenAuth] = useState(false);
+
+  const token = localStorage.getItem("token");
+
   return (
     <section className="bg-[rgb(26,11,46)] sticky top-0 z-50">
       <div className="w-[90%] m-auto py-[20px] flex items-center justify-between">
@@ -16,9 +21,18 @@ function Navbar() {
         <div className="flex items-center gap-4">
           <Search size={27} className="text-[#FFF] cursor-pointer" />
 
-          <AutComponents />
+          <button
+            onClick={() => setOpenAuth(true)}
+            className="relative overflow-hidden text-white w-[150px] py-[7px] text-[19px] font-medium rounded-full border border-[#ffd700] group"
+          >
+            <span className="relative z-10 transition-colors duration-500 group-hover:text-black">
+              {token ? "User" : "Kirish"}
+            </span>
+            <span className="absolute top-0 left-0 w-0 h-full bg-[#ffd700] transition-all duration-500 ease-in-out rounded-full group-hover:w-full"></span>
+          </button>
         </div>
       </div>
+      <AutComponents show={openAuth} onClose={() => setOpenAuth(false)} />
     </section>
   );
 }
