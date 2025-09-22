@@ -34,7 +34,7 @@ function Login({ onSuccessLogin }) {
 
     axios({
       method: "POST",
-      url: "/login",
+      url: "/auth/login",
       data,
     })
       .then((data) => {

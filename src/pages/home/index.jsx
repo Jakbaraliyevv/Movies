@@ -7,11 +7,9 @@ import Showcase from "../../components/showcase";
 function Home() {
   return (
     <div>
-      <Navbar />
       <Showcase />
       <Catagories />
       <PremyeraFilms />
-      <Footer />
     </div>
   );
 }

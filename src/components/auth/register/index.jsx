@@ -33,7 +33,7 @@ function Register({ onSuccessRegister }) {
 
     axios({
       method: "POST",
-      url: "/register",
+      url: "/auth/register",
       data,
     })
       .then((data) => {

@@ -8,12 +8,12 @@ function Footer() {
     <section className="bg-[rgb(26,11,46)] py-[60px] mt-[40px]">
       <div className="w-[90%] m-auto flex items-start justify-between">
         <div className="flex flex-col gap-4 w-[27%]">
-          <div className="flex items-end gap-2">
+          <Link to={"/"} className="flex items-end gap-2">
             <img className="w-[50px]" src={logo} alt="logo" />
             <h1 className="text-[27px] text-white font-medium font-serif">
               Filmagnet
             </h1>
-          </div>
+          </Link>
           <p className="text-gray-300 text-[15px] font-medium ">
             Eng so'nggi va sifatli filmlar seriallar va multfilmlarni bepul va
             reklamasiz tomosha qiling. 24/7 yangi kontentlar qo'shib turamiz.
@@ -60,7 +60,10 @@ function Footer() {
               <h4 className="text-gray-400 font-medium text-[14px]">
                 Instagram
               </h4>
-              <a className="text-[19px] text-[#FFF] font-semibold hover:text-blue-400 transition duration-300" href="jakbaraliyev29">
+              <a
+                className="text-[19px] text-[#FFF] font-semibold hover:text-blue-400 transition duration-300"
+                href="jakbaraliyev29"
+              >
                 MovieChanel
               </a>
             </div>
