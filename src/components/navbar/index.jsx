@@ -47,7 +47,6 @@ function Navbar() {
 
         {/* Search + Button */}
         <div className="flex items-center gap-4 relative" ref={dropdownRef}>
-         
           <SearchModal />
           <button
             onClick={() =>

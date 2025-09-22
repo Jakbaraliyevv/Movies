@@ -27,3 +27,21 @@ export const useAxios = () => {
 
   return response;
 };
+
+
+
+
+// {
+//   "_id": "67177ba831b9d77f9d36e123",
+//   "title": "Eshning Sarguzashtlari",
+//   "description": "So‘nggi o‘ttiz yil davomida Esh dahshatli o‘liklar bilan bog‘liq xotiralardan qochishga harakat qildi...",
+//   "year": 2015,
+//   "country": ["AQSH", "Yangi Zenlandiya"],
+//   "genres": ["Qo‘rqinchli", "Komediya", "Fantaziya", "Jangari"],
+//   "videoUrl": "https://your-storage.com/movies/esh.mp4",
+//   "posterUrl": "https://your-storage.com/movies/esh.jpg",
+//   "likes": 0,
+//   "dislikes": 0,
+//   "views": 0,
+//   "createdAt": "2025-09-09T09:09:41Z"
+// }
