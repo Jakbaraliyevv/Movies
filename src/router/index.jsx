@@ -21,6 +21,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "../components/Layout"; // Layout yaratgan bo'lishingiz kerak
 import Home from "../pages/home";
 import MovieDetail from "../components/MovieDetail";
+import AllCard_movie from "../components/all-movies";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <MovieDetail />
+      </Layout>
+    ),
+  },
+  {
+    path: "/all-movies",
+    element: (
+      <Layout>
+        <AllCard_movie />
       </Layout>
     ),
   },

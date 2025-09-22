@@ -3,7 +3,7 @@ import { useAxios } from "../../hooks";
 import { useNavigate } from "react-router-dom";
 import { Loader2, Play } from "lucide-react";
 
-function Card_movie() {
+function AllCard_movie() {
   const navigate = useNavigate();
   const axios = useAxios();
 
@@ -37,7 +37,7 @@ function Card_movie() {
 
   if (loading) {
     return (
-      <section className="text-[#FFF]">
+      <section className="text-[#FFF] w-[90%] m-auto">
         {/* Loading indicator */}
         <div className="flex items-center justify-center mb-8 gap-3">
           <Loader2 size={28} className="animate-spin text-[#ffd700]" />
@@ -70,45 +70,45 @@ function Card_movie() {
     );
   }
 
-  // Faqat 8 ta filmni olish
-  const displayedMovies = data
-    .filter((value) => !value?.isPremiere)
-    .slice(0, 8);
-
   return (
-    <section className="text-[#FFF]">
-      <div className="grid grid-cols-4 gap-[24px]">
-        {displayedMovies.map((value) => (
-          <div key={value?._id} className="w-full h-auto">
-            <div className="w-full">
-              <img
-                onClick={() => navigate(`/movies/${value?._id}`)}
-                className="w-full cursor-pointer h-[340px] object-cover rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:scale-105"
-                src={value?.posterUrl}
-                alt={value?.title}
-              />
-            </div>
-            <div className="flex flex-col gap-3 items-start p-2">
-              <div>
-                <h3 className="text-[19px] font-bold">{value?.title}</h3>
-                <p className="text-[14px] font-medium text-gray-400">
-                  {truncateTitle(value?.description, 4)}
-                </p>
+    <section className="w-[90%] m-auto">
+      <h2 className="py-7 text-[#FFF] text-[34px] font-bold text-center">Barcha filimlar :(</h2>
+      <div className="grid grid-cols-4 text-[#FFF] gap-[24px] ">
+        {data.map((value) =>
+          value?.isPremiere ? (
+            ""
+          ) : (
+            <div key={value?._id} className="w-full h-auto">
+              <div className="w-full">
+                <img
+                  onClick={() => navigate(`/movies/${value?._id}`)} // 👈 ID
+                  className="w-full cursor-pointer h-[340px] object-cover rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:scale-105"
+                  src={value?.posterUrl}
+                  alt={value?.title}
+                />
               </div>
+              <div className="flex flex-col gap-3 items-start p-2">
+                <div>
+                  <h3 className="text-[19px] font-bold">{value?.title}</h3>
+                  <p className="text-[14px] font-medium text-gray-400">
+                    {truncateTitle(value?.description, 4)}
+                  </p>
+                </div>
 
-              <button
-                onClick={() => navigate(`/movies/${value?._id}`)}
-                className="filmBtn w-full bg-[#ffd700] text-[#000] text-[14px] font-medium rounded-[5px] h-[30px] flex items-center justify-center gap-1"
-              >
-                <Play size={12} />
-                Tomosha qilish
-              </button>
+                <button
+                  onClick={() => navigate(`/movies/${value?._id}`)} // 👈 ID
+                  className="filmBtn w-full bg-[#ffd700] text-[#000] text-[14px] font-medium rounded-[5px] h-[30px]  flex items-center justify-center gap-1"
+                >
+                  <Play size={12} />
+                  Tomosha qilish
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        )}
       </div>
     </section>
   );
 }
 
-export default Card_movie;
+export default AllCard_movie;

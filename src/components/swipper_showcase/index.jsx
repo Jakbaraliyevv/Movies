@@ -64,7 +64,7 @@ function Shwipper_showcase() {
       <Swiper
         modules={[Autoplay]}
         spaceBetween={20}
-        slidesPerView={4} // faqat bitta slayd ko'rinadi
+        slidesPerView={6} // faqat bitta slayd ko'rinadi
         navigation
         pagination={{ clickable: true }}
         autoplay={{
