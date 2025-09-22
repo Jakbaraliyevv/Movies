@@ -135,15 +135,23 @@ function MovieDetail() {
           <div className="lg:w-2/3">
             <div className="relative mb-6">
               <div className="aspect-video bg-black rounded-xl overflow-hidden border-2 border-[#ffd700]/30 shadow-2xl">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src={movie?.videoUrl}
-                  title={movie?.title}
-                  frameBorder="0"
-                  allowFullScreen
-                  className="w-full h-full"
-                ></iframe>
+                {movie?.isPremiere ? (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <h3 className="text-[19px] text-[#FFF]">
+                      Bu filim tez orada bizning platformada taqdim etiladi
+                    </h3>
+                  </div>
+                ) : (
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={movie?.videoUrl}
+                    title={movie?.title}
+                    frameBorder="0"
+                    allowFullScreen
+                    className="w-full h-full"
+                  ></iframe>
+                )}
               </div>
 
               {/* Video overlay info */}
@@ -234,43 +242,47 @@ function MovieDetail() {
             <div className="sticky top-6">
               <div className="h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-[#ffd700]/50 scrollbar-track-transparent">
                 <div className="space-y-4 pr-2">
-                  {data?.map((relatedMovie) => (
-                    <div
-                      key={relatedMovie?._id}
-                      className="group bg-gradient-to-r from-[#ffd700]/10 to-transparent p-4 rounded-xl border border-[#ffd700]/20 hover:border-[#ffd700]/50 transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:shadow-lg hover:shadow-[#ffd700]/20"
-                      onClick={() =>
-                        (window.location.href = `/movies/${relatedMovie?._id}`)
-                      }
-                    >
-                      <div className="flex gap-4">
-                        <div className="relative flex-shrink-0">
-                          <img
-                            src={
-                              relatedMovie?.posterUrl ||
-                              `https://picsum.photos/120/90?random=${relatedMovie?._id}`
-                            }
-                            alt={relatedMovie?.title}
-                            className="w-20 h-16 object-cover rounded-lg border-2 border-[#ffd700]/30 group-hover:border-[#ffd700] transition-all duration-300"
-                          />
-                          <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <Play size={16} className="text-[#ffd700]" />
+                  {data?.map((relatedMovie) =>
+                    relatedMovie?.isPremiere ? (
+                      ""
+                    ) : (
+                      <div
+                        key={relatedMovie?._id}
+                        className="group bg-gradient-to-r from-[#ffd700]/10 to-transparent p-4 rounded-xl border border-[#ffd700]/20 hover:border-[#ffd700]/50 transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:shadow-lg hover:shadow-[#ffd700]/20"
+                        onClick={() =>
+                          (window.location.href = `/movies/${relatedMovie?._id}`)
+                        }
+                      >
+                        <div className="flex gap-4">
+                          <div className="relative flex-shrink-0">
+                            <img
+                              src={
+                                relatedMovie?.posterUrl ||
+                                `https://picsum.photos/120/90?random=${relatedMovie?._id}`
+                              }
+                              alt={relatedMovie?.title}
+                              className="w-20 h-16 object-cover rounded-lg border-2 border-[#ffd700]/30 group-hover:border-[#ffd700] transition-all duration-300"
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                              <Play size={16} className="text-[#ffd700]" />
+                            </div>
                           </div>
-                        </div>
 
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-semibold text-white group-hover:text-[#ffd700] transition-colors duration-300 line-clamp-2 mb-1">
-                            {relatedMovie?.title}
-                          </h4>
-                          <div className="flex items-center gap-2 text-sm text-gray-400 mb-1">
-                            <span>{relatedMovie?.year}</span>
-                            <span>•</span>
-                            <span>{relatedMovie?.country}</span>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-semibold text-white group-hover:text-[#ffd700] transition-colors duration-300 line-clamp-2 mb-1">
+                              {relatedMovie?.title}
+                            </h4>
+                            <div className="flex items-center gap-2 text-sm text-gray-400 mb-1">
+                              <span>{relatedMovie?.year}</span>
+                              <span>•</span>
+                              <span>{relatedMovie?.country}</span>
+                            </div>
+                            <div className="flex items-center gap-4 text-xs text-gray-500"></div>
                           </div>
-                          <div className="flex items-center gap-4 text-xs text-gray-500"></div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  )}
                 </div>
               </div>
             </div>
