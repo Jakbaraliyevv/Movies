@@ -9,6 +9,7 @@ import {
   Play,
   ThumbsDown,
   ThumbsUp,
+  Loader2,
 } from "lucide-react";
 
 function MovieDetail() {
@@ -16,16 +17,116 @@ function MovieDetail() {
   const axios = useAxios();
   const [movie, setMovie] = useState(null);
   const [data, setData] = useState(null);
+  const [movieLoading, setMovieLoading] = useState(true);
+  const [dataLoading, setDataLoading] = useState(true);
 
   useEffect(() => {
+    setMovieLoading(true);
+    setDataLoading(true);
+
     axios({ url: `/movies/${id}`, method: "GET" })
-      .then((res) => setMovie(res))
-      .catch((err) => console.error(err));
+      .then((res) => {
+        setMovie(res);
+        setMovieLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setMovieLoading(false);
+      });
 
     axios({ url: `/movies`, method: "GET" })
-      .then((res) => setData(res))
-      .catch((err) => console.error(err));
+      .then((res) => {
+        setData(res);
+        setDataLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setDataLoading(false);
+      });
   }, [id]);
+
+  const isLoading = movieLoading || dataLoading;
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[rgb(17,7,31)] text-white">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex flex-col lg:flex-row gap-6">
+            {/* Left side loading */}
+            <div className="lg:w-2/3">
+              <div className="relative mb-6">
+                <div className="aspect-video bg-black/50 rounded-xl overflow-hidden border-2 border-[#ffd700]/30 shadow-2xl flex items-center justify-center">
+                  <div className="flex flex-col items-center gap-4">
+                    <Loader2
+                      size={48}
+                      className="text-[#ffd700] animate-spin"
+                    />
+                    <p className="text-[#ffd700] text-lg">
+                      Video yuklanmoqda...
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mb-6">
+                <div className="h-10 bg-[#ffd700]/20 rounded-lg mb-3 animate-pulse"></div>
+                <div className="flex gap-4 mb-4">
+                  <div className="h-4 w-20 bg-gray-600/50 rounded animate-pulse"></div>
+                  <div className="h-4 w-24 bg-gray-600/50 rounded animate-pulse"></div>
+                  <div className="h-4 w-16 bg-gray-600/50 rounded animate-pulse"></div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-[#ffd700]/10 to-transparent p-6 rounded-xl border-l-4 border-[#ffd700] mb-6">
+                <div className="space-y-4">
+                  <div className="h-4 bg-gray-600/50 rounded animate-pulse w-full"></div>
+                  <div className="h-4 bg-gray-600/50 rounded animate-pulse w-3/4"></div>
+                  <div className="h-4 bg-gray-600/50 rounded animate-pulse w-5/6"></div>
+                </div>
+              </div>
+
+              <div className="flex items-end justify-between mb-6">
+                <div className="w-[300px] h-[50px] bg-gradient-to-br from-[#ffd700]/20 to-[#ffd700]/5 rounded-md border border-[#ffd700]/30 animate-pulse"></div>
+                <div className="w-[160px] h-[50px] bg-gradient-to-br from-[#ffd700]/20 to-[#ffd700]/5 rounded-xl border border-[#ffd700]/30 animate-pulse"></div>
+              </div>
+            </div>
+
+            {/* Right side loading */}
+            <div className="lg:w-1/3">
+              <div className="sticky top-6">
+                <div className="h-[80vh] overflow-y-auto">
+                  <div className="space-y-4 pr-2">
+                    {[...Array(6)].map((_, index) => (
+                      <div
+                        key={index}
+                        className="bg-gradient-to-r from-[#ffd700]/10 to-transparent p-4 rounded-xl border border-[#ffd700]/20"
+                      >
+                        <div className="flex gap-4">
+                          <div className="w-20 h-16 bg-gray-600/50 rounded-lg animate-pulse"></div>
+                          <div className="flex-1 space-y-2">
+                            <div className="h-4 bg-gray-600/50 rounded animate-pulse w-full"></div>
+                            <div className="h-3 bg-gray-600/50 rounded animate-pulse w-2/3"></div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Loading indicator at bottom */}
+          <div className="fixed bottom-6 right-6 bg-[#ffd700]/20 backdrop-blur-sm border border-[#ffd700]/30 rounded-lg p-3 flex items-center gap-2">
+            <Loader2 size={20} className="text-[#ffd700] animate-spin" />
+            <span className="text-[#ffd700] text-sm">
+              Ma'lumotlar yuklanmoqda...
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[rgb(17,7,31)] text-white">
