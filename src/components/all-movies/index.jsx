@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAxios } from "../../hooks";
 import { useNavigate } from "react-router-dom";
-import { Loader2, Play } from "lucide-react";
+import { Eye, Loader2, Play } from "lucide-react";
 
 function AllCard_movie() {
   const navigate = useNavigate();
@@ -72,13 +72,15 @@ function AllCard_movie() {
 
   return (
     <section className="w-[90%] m-auto">
-      <h2 className="py-7 text-[#FFF] text-[34px] font-bold text-center">Barcha filimlar :(</h2>
+      <h2 className="py-7 text-[#FFF] text-[34px] font-bold text-center">
+        Barcha filimlar :(
+      </h2>
       <div className="grid grid-cols-4 text-[#FFF] gap-[24px] ">
         {data.map((value) =>
           value?.isPremiere ? (
             ""
           ) : (
-            <div key={value?._id} className="w-full h-auto">
+            <div key={value?._id} className="relative w-full h-auto">
               <div className="w-full">
                 <img
                   onClick={() => navigate(`/movies/${value?._id}`)} // 👈 ID
@@ -86,6 +88,12 @@ function AllCard_movie() {
                   src={value?.posterUrl}
                   alt={value?.title}
                 />
+                <div className="eyeCard ">
+                  <div className="flex items-center gap-1">
+                    <Eye size={19} className="text-[#FFF]" />
+                    <span>{value?.views?.length}</span>
+                  </div>
+                </div>
               </div>
               <div className="flex flex-col gap-3 items-start p-2">
                 <div>

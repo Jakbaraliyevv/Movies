@@ -19,6 +19,7 @@ function MovieDetail() {
   const [data, setData] = useState(null);
   const [movieLoading, setMovieLoading] = useState(true);
   const [dataLoading, setDataLoading] = useState(true);
+  const [views, setViews] = useState(movie?.views || 0);
 
   useEffect(() => {
     setMovieLoading(true);
@@ -46,6 +47,38 @@ function MovieDetail() {
   }, [id]);
 
   const isLoading = movieLoading || dataLoading;
+
+  const likeFunc = (_id) => {
+    axios({
+      url: `/movies/${_id}/like`,
+      method: "POST",
+      data: {},
+    })
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
+  };
+  const disLikeFunc = (_id) => {
+    axios({
+      url: `/movies/${_id}/dislike`,
+      method: "POST",
+      data: {},
+    })
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
+  };
+
+  // views
+
+  useEffect(() => {
+    if (!movie?._id) return;
+
+    axios({
+      url: `/movies/${movie._id}/view`,
+      method: "POST",
+    })
+      .then((data) => setViews(data?.views))
+      .catch((err) => console.log(err));
+  }, [movie?._id]);
 
   if (isLoading) {
     return (
@@ -129,7 +162,7 @@ function MovieDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-[rgb(17,7,31)] text-white">
+    <div className="w-[90%] m-auto min-h-screen bg-[rgb(17,7,31)] text-white">
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="lg:w-2/3">
@@ -179,7 +212,7 @@ function MovieDetail() {
                 </div>
                 <div className="flex items-center gap-1">
                   <Eye size={16} className="text-[#ffd700]" />
-                  <span>{movie?.views || "0"}</span>
+                  <span>{views}</span>
                 </div>
               </div>
             </div>
@@ -219,19 +252,26 @@ function MovieDetail() {
                 </div>
               </div>
               <div className="flex items-center justify-center w-[160px] h-[50px] bg-gradient-to-br from-[#ffd700]/20 to-[#ffd700]/5 p-4 rounded-xl border border-[#ffd700]/30 text-center">
-                <div className="cursor-pointer flex items-center justify-center flex-1 gap-2">
+                <div
+                  onClick={() => likeFunc(movie?._id)}
+                  className="cursor-pointer flex items-center justify-center flex-1 gap-2"
+                >
                   <ThumbsUp size={24} className="text-[#ffd700]" />
                   <div className="text-xl font-bold text-white">
-                    {movie?.likes || "0"}
+                    {movie?.likes?.length || "0"}
+                    {/* {likes1?.likes || "0"} */}
                   </div>
                 </div>
 
                 <div className="w-[1px] bg-[#ffd700] h-full mx-2"></div>
 
-                <div className="cursor-pointer flex items-center justify-center flex-1 gap-2">
+                <div
+                  onClick={() => disLikeFunc(movie?._id)}
+                  className="cursor-pointer flex items-center justify-center flex-1 gap-2"
+                >
                   <ThumbsDown size={24} className="text-[#ffd700]" />
                   <div className="text-xl font-bold text-white">
-                    {movie?.dislikes || "0"}
+                    {movie?.dislikes?.length || "0"}
                   </div>
                 </div>
               </div>

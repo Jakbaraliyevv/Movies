@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAxios } from "../../hooks";
 import { useNavigate } from "react-router-dom";
-import { Loader2, Play } from "lucide-react";
+import { Eye, Loader2, Play } from "lucide-react";
 
 function Card_movie() {
   const navigate = useNavigate();
@@ -79,7 +79,7 @@ function Card_movie() {
     <section className="text-[#FFF]">
       <div className="grid grid-cols-4 gap-[24px]">
         {displayedMovies.map((value) => (
-          <div key={value?._id} className="w-full h-auto">
+          <div key={value?._id} className="relative w-full h-auto">
             <div className="w-full">
               <img
                 onClick={() => navigate(`/movies/${value?._id}`)}
@@ -87,6 +87,12 @@ function Card_movie() {
                 src={value?.posterUrl}
                 alt={value?.title}
               />
+              <div className="eyeCard ">
+                <div className="flex items-center gap-1">
+                  <Eye size={19} className="text-[#FFF]" />
+                  <span>{value?.views?.length}</span>
+                </div>
+              </div>
             </div>
             <div className="flex flex-col gap-3 items-start p-2">
               <div>

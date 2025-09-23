@@ -14,7 +14,7 @@ function PremyeraFilms() {
     setLoading(true);
 
     axios({
-      url: "/movies",
+      url: "/movies/premieres",
       method: "GET",
     })
       .then((data) => {
@@ -70,10 +70,6 @@ function PremyeraFilms() {
           <h2 className="text-[33px] font-bold text-[#FFF]">
             Premyera (Tez kunda)
           </h2>
-          <div className=" flex items-center gap-2 text-[19px] font-medium cursor-pointer border-[1px] border-gray-500 py-1 px-4 rounded-[5px] justify-center">
-            <h3 className="text-[#FFF]">Barchasini ko'rish</h3>
-            <ArrowRight className="w-6 h-6 text-white " />
-          </div>
         </div>
         <div className="grid grid-cols-4 text-[#FFF] gap-[24px]">
           {data.map((value) =>
