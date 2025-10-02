@@ -31,7 +31,7 @@ const AutComponents = ({ show, onClose }) => {
         content: { backgroundColor: "rgb(17,7,31)", color: "#fff" },
         header: { backgroundColor: "rgb(17,7,31)", color: "#fff" },
       }}
-    >
+    >  
       <div>
         <div className="flex items-center text-[19px] font-bold justify-center gap-[30px] text-white">
           <h2

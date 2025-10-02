@@ -4,9 +4,11 @@ import AutComponents from "../auth";
 import { useState, useEffect, useRef } from "react";
 import SearchModal from "./search-modal";
 import { Link } from "react-router-dom";
+import { useAxios } from "../../hooks";
 
 function Navbar() {
   const [openAuth, setOpenAuth] = useState(false);
+  const axios = useAxios();
   const [openDropdown, setOpenDropdown] = useState(false);
 
   const token = localStorage.getItem("token");
@@ -14,8 +16,21 @@ function Navbar() {
   const dropdownRef = useRef(null);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.reload(); // sahifani yangilab yuboradi
+    axios({
+      url: "/auth/logout",
+      method: "POST",
+      data: {}, // ✅ bo‘sh object
+    })
+      .then(() => {
+        localStorage.removeItem("token");
+        // 🔥 Users ro‘yxatini yangilash
+        axios({ url: "/auth/users", method: "GET" })
+          .then((res) => setUsers(res))
+          .catch((err) => console.log(err));
+
+        window.location.reload();
+      })
+      .catch((error) => console.log(error));
   };
 
   // Tashqariga bosilganda dropdown yopiladi

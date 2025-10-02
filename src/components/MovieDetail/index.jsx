@@ -171,19 +171,25 @@ function MovieDetail() {
                 {movie?.isPremiere ? (
                   <div className="w-full h-full flex items-center justify-center">
                     <h3 className="text-[19px] text-[#FFF]">
-                      Bu filim tez orada bizning platformada taqdim etiladi
+                      Bu film tez orada bizning platformada taqdim etiladi
                     </h3>
                   </div>
-                ) : (
+                ) : localStorage.getItem("token") ? (
                   <iframe
                     width="100%"
                     height="100%"
-                    src={movie?.videoUrl}
+                    src={movie?.videoEmbedUrl}
                     title={movie?.title}
                     frameBorder="0"
                     allowFullScreen
                     className="w-full h-full"
                   ></iframe>
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <h3 className="text-[19px] text-[#FFF]">
+                      Videoni ko‘rish uchun ro‘yxatdan o‘ting yoki login qiling
+                    </h3>
+                  </div>
                 )}
               </div>
 

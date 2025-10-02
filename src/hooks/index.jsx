@@ -12,15 +12,12 @@
 //           "Content-Type": "application/json",
 //           ...headers,
 //         },
-//         params: {
-//           access_token: localStorage.getItem("token"),
-//           ...params,
-//         },
+//         params, // 🔥 faqat kerak bo‘lsa foydalansin
 //       });
 
 //       return res.data;
 //     } catch (error) {
-//       console.error("Axios Xatolik:", error);
+//       console.error("Axios Xatolik:", error.response?.data || error.message);
 //       throw error;
 //     }
 //   };
@@ -42,11 +39,19 @@ export const useAxios = () => {
           "Content-Type": "application/json",
           ...headers,
         },
-        params, // 🔥 faqat kerak bo‘lsa foydalansin
+        params,
       });
 
       return res.data;
     } catch (error) {
+      // ❌ Agar token muddati tugagan bo‘lsa (401 qaytsa)
+      if (error.response && error.response.status === 401) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("expireTime"); // agar ishlatayotgan bo‘lsangiz
+        // 🔄 login pagega yo‘naltirish
+        // window.location.href = "/";
+      }
+
       console.error("Axios Xatolik:", error.response?.data || error.message);
       throw error;
     }

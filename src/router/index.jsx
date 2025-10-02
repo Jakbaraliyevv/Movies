@@ -22,6 +22,7 @@ import Layout from "../components/Layout"; // Layout yaratgan bo'lishingiz kerak
 import Home from "../pages/home";
 import MovieDetail from "../components/MovieDetail";
 import AllCard_movie from "../components/all-movies";
+import Filter_catagory from "../components/filter-catagory";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <AllCard_movie />
+      </Layout>
+    ),
+  },
+  {
+    path: "/filter-catagory/:slug",
+    element: (
+      <Layout>
+        <Filter_catagory />
       </Layout>
     ),
   },
