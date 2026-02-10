@@ -52,7 +52,7 @@ function Navbar() {
 
   return (
     <section className="bg-[rgb(26,11,46)] sticky top-0 z-50">
-      <div className="w-[90%] m-auto py-[20px] flex items-center justify-between">
+      <div className="w-[90%] m-auto py-[20px]  flex items-center justify-between">
         {/* Logo */}
         <Link to={"/"} className="flex items-end gap-2">
           <img className="w-[50px]" src={logo} alt="logo" />
@@ -62,19 +62,29 @@ function Navbar() {
         </Link>
 
         {/* Search + Button */}
-        <div className="flex items-center gap-4 relative" ref={dropdownRef}>
+        <div
+          className="flex items-center gap-4 relative max-[420px]:gap-2"
+          ref={dropdownRef}
+        >
           <SearchModal />
           <button
             onClick={() =>
               token ? setOpenDropdown((prev) => !prev) : setOpenAuth(true)
             }
-            className="relative overflow-hidden text-white px-6 py-[7px] text-[19px] font-medium rounded-full border border-[#ffd700] group"
+            className="relative overflow-hidden text-white !px-2 min-[400px]:px-4 min-[600px]:px-6 !py-[5px] min-[400px]:py-[6px] min-[600px]:py-[7px] !text-[13px] min-[400px]:text-[17px] min-[600px]:text-[19px] font-medium rounded-full border border-[#ffd700] group"
           >
-            <span className=" text-[19px]  font-medium relative z-10 transition-colors duration-500 group-hover:text-black">
+            <span className="relative z-10 transition-colors duration-500 group-hover:text-black">
               {token ? (
-                <span className=" flex items-center justify-center gap-2">
-                  <User size={22} />
-                  <span>{user?.name ? user?.name : "User"}</span>
+                <span className="flex items-center justify-center gap-1  min-[400px]:gap-2">
+                  <User
+                    size={18}
+                    className=" min-[400px]:w-[20px] min-[400px]:h-[20px] min-[600px]:w-[22px] min-[600px]:h-[22px]"
+                  />
+
+                  {/* 400px+ → to'liq ism ko'rinadi */}
+                  <span className="hidden min-[400px]:inline">
+                    {user?.name ? user?.name : "User"}
+                  </span>
                 </span>
               ) : (
                 "Kirish"
@@ -82,7 +92,6 @@ function Navbar() {
             </span>
             <span className="absolute top-0 left-0 w-0 h-full bg-[#ffd700] transition-all duration-500 ease-in-out rounded-full group-hover:w-full"></span>
           </button>
-
           {/* Dropdown */}
           {token && openDropdown && (
             <div className="absolute top-[60px] right-0 bg-[rgb(17,7,31)] border border-[#ffd700] rounded-lg w-[180px] shadow-lg text-white">
