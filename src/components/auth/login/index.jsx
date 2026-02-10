@@ -38,7 +38,9 @@ function Login({ onSuccessLogin }) {
       data,
     })
       .then((data) => {
-        localStorage.setItem("token", data?.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("token", data.accessToken);
+        localStorage.setItem("refreshToken", data.refreshToken);
         notify("login");
         onSuccessLogin();
       })

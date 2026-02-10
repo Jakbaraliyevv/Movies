@@ -12,7 +12,7 @@ function Navbar() {
   const [openDropdown, setOpenDropdown] = useState(false);
 
   const token = localStorage.getItem("token");
-
+  const user = JSON.parse(localStorage.getItem("user"));
   const dropdownRef = useRef(null);
 
   const handleLogout = () => {
@@ -68,13 +68,13 @@ function Navbar() {
             onClick={() =>
               token ? setOpenDropdown((prev) => !prev) : setOpenAuth(true)
             }
-            className="relative overflow-hidden text-white w-[150px] py-[7px] text-[19px] font-medium rounded-full border border-[#ffd700] group"
+            className="relative overflow-hidden text-white px-6 py-[7px] text-[19px] font-medium rounded-full border border-[#ffd700] group"
           >
-            <span className=" text-[19px] font-medium relative z-10 transition-colors duration-500 group-hover:text-black">
+            <span className=" text-[19px]  font-medium relative z-10 transition-colors duration-500 group-hover:text-black">
               {token ? (
                 <span className=" flex items-center justify-center gap-2">
                   <User size={22} />
-                  <span>User</span>
+                  <span>{user?.name ? user?.name : "User"}</span>
                 </span>
               ) : (
                 "Kirish"
